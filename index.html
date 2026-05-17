@@ -231,6 +231,193 @@ button,input,textarea{font-family:inherit}
   line-height:1.4;
 }
 
+
+/* SHIFT ROSTER ADD-ON - KEEP SAME BOOTS CSS PATTERN */
+.hero{
+  padding:14px 18px 12px!important;
+}
+.hero-title{
+  font-size:27px!important;
+  line-height:1.02!important;
+  margin-top:9px!important;
+}
+.hero-sub{
+  margin-top:4px!important;
+}
+.shift-mini-toggle{
+  position:fixed;
+  top:calc(var(--safe-top) + 64px);
+  right:12px;
+  z-index:120;
+  width:38px;
+  height:38px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:#fff;
+  box-shadow:0 8px 22px rgba(0,0,0,.28);
+  font-size:18px;
+}
+.shift-panel{
+  margin:12px 18px 12px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:13px;
+  box-shadow:0 8px 22px rgba(0,0,0,.22);
+}
+.shift-panel.hide{
+  display:none;
+}
+.shift-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+.shift-title{
+  font-size:11px;
+  font-weight:950;
+  color:var(--text2);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.shift-today{
+  background:linear-gradient(145deg,#005EB8,#4BA3E3);
+  border-radius:15px;
+  padding:12px;
+  margin-bottom:10px;
+}
+.shift-today .label{
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  opacity:.85;
+}
+.shift-today .time{
+  font-size:22px;
+  font-family:var(--mono);
+  font-weight:950;
+  margin-top:3px;
+}
+.shift-today .sub{
+  font-size:11px;
+  opacity:.85;
+  margin-top:3px;
+}
+.shift-week{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+.shift-day{
+  min-height:58px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;
+  padding:7px 3px;
+  text-align:center;
+}
+.shift-day.active{
+  background:rgba(75,163,227,.16);
+  border-color:rgba(75,163,227,.45);
+}
+.shift-day.off{
+  background:rgba(239,68,68,.18);
+  border-color:rgba(239,68,68,.34);
+}
+.shift-day .d{
+  font-size:8px;
+  font-weight:950;
+  color:var(--text3);
+  text-transform:uppercase;
+}
+.shift-day .t{
+  font-size:9px;
+  font-weight:950;
+  color:#fff;
+  line-height:1.15;
+  margin-top:5px;
+}
+.next-shift-card{
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.next-box{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:9px;
+}
+.next-box .n-label{
+  font-size:8px;
+  color:var(--text3);
+  font-weight:950;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.next-box .n-val{
+  font-size:12px;
+  font-weight:950;
+  margin-top:4px;
+}
+.ocr-card{
+  margin:10px 18px 12px;
+  background:linear-gradient(145deg,rgba(216,27,96,.18),rgba(142,36,170,.14),rgba(0,94,184,.12));
+  border:1px solid rgba(216,27,96,.22);
+  border-radius:18px;
+  padding:13px;
+}
+.ocr-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.ocr-title{
+  font-size:11px;
+  font-weight:950;
+  color:#FCE7F3;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.ocr-btn{
+  border:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  padding:8px 12px;
+  font-size:11px;
+  font-weight:950;
+}
+.ocr-text{
+  font-size:11px;
+  color:var(--text2);
+  line-height:1.4;
+  margin-top:8px;
+}
+.ocr-preview{
+  margin-top:10px;
+  max-height:90px;
+  overflow:hidden;
+  border-radius:12px;
+  display:none;
+  border:1px solid rgba(255,255,255,.12);
+}
+.ocr-preview img{
+  width:100%;
+  display:block;
+}
+.ocr-result{
+  margin-top:8px;
+  font-size:10px;
+  font-family:var(--mono);
+  color:#BFDBFE;
+  white-space:pre-wrap;
+}
+
 </style>
 </head>
 <body>
@@ -239,12 +426,29 @@ button,input,textarea{font-family:inherit}
   <div class="badge" id="storeBadge">BOOTS DXB T3</div>
 </div>
 <div class="toast" id="toast">Saved</div>
+<button class="shift-mini-toggle" onclick="toggleShiftPanel()" id="shiftToggle">🌙</button>
 
 <section class="screen active" id="home">
   <div class="hero">
     <div class="pill">⚕️ <span id="homeStore">BOOTS DXB T3</span></div>
     <div class="hero-title">PHARMACY<br>SALES</div>
     <div class="hero-sub">Daily Performance Dashboard</div>
+  </div>
+  <div class="shift-panel" id="shiftPanel">
+    <div class="shift-head">
+      <div class="shift-title">👤 My Shift · VYSAKH 331356</div>
+      <div class="date" id="shiftWeekLabel">Fri–Thu</div>
+    </div>
+    <div class="shift-today">
+      <div class="label">Today Shift</div>
+      <div class="time" id="myShiftToday">—</div>
+      <div class="sub" id="myShiftSub">Auto from roster</div>
+    </div>
+    <div class="shift-week" id="shiftWeekStrip"></div>
+    <div class="next-shift-card">
+      <div class="next-box"><div class="n-label">Next Pharmacist</div><div class="n-val" id="nextPh">—</div></div>
+      <div class="next-box"><div class="n-label">Next Cashier</div><div class="n-val" id="nextCashier">—</div></div>
+    </div>
   </div>
   <div class="progress-card">
     <div class="row"><div><div class="tiny">Today's Total Register</div><div class="big-num" id="hSales">AED 0</div></div><div style="text-align:right"><div class="tiny">Achieved</div><div class="big-num" id="hPct" style="color:var(--accent)">—%</div></div></div>
@@ -310,6 +514,16 @@ button,input,textarea{font-family:inherit}
     <div class="set-row"><div><b>No7 Target %</b><div class="list-sub">Share target</div></div><input id="setNo7Target" type="number" oninput="setCfg('no7Target',this.value)"></div>
     <div class="set-row"><div><b>Aura Target %</b><div class="list-sub">Enrolled / TRN</div></div><input id="setAuraTarget" type="number" oninput="setCfg('auraTarget',this.value)"></div>
   </div>
+  <div class="ocr-card">
+    <div class="ocr-head">
+      <div class="ocr-title">📷 Roster Image Capture</div>
+      <button class="ocr-btn" onclick="document.getElementById('rosterImage').click()">Camera / Upload</button>
+    </div>
+    <div class="ocr-text">Upload Excel roster image. Image is stored as reference. OCR will try browser text extraction if available; otherwise keep it as a visual reference and update roster manually.</div>
+    <input type="file" id="rosterImage" accept="image/*" capture="environment" style="display:none" onchange="handleRosterImage(event)">
+    <div class="ocr-preview" id="ocrPreview"></div>
+    <div class="ocr-result" id="ocrResult"></div>
+  </div>
   <button class="save" onclick="exportData()">📤 Export JSON</button>
   <button class="save" style="background:var(--red);box-shadow:none" onclick="resetAll()">🗑 Reset All</button>
 </section>
@@ -332,11 +546,115 @@ const fields=[
 ];
 let cfg={store:'BOOTS DXB T3',target:20000,no7Target:12,auraTarget:65};
 let data={};let current={};
+
+let shiftPanelVisible=true;
+let rosterStatus={};
+const MY_NAME='VYSAKH';
+const MY_ID='331356';
+const rosterWeek21={
+  start:'2026-05-15',
+  people:[
+    {name:'Nadiya Hakkim',role:'PH',shifts:['AL','AL','AL','AL','AL','AL','AL']},
+    {name:'Aditya',role:'PH',shifts:['DO','2-10 PM','12-10 PM','9-7AM (Night)','9-7AM (Night)','9-7AM (Night)','NIGHT OFF']},
+    {name:'Nitheesh Pushkar',role:'PH',shifts:['10-6AM (Night)+3','NIGHT OFF','OTD','1-10 PM','6-3PM','6-3PM','9-7AM (Night)']},
+    {name:'VYSAKH',role:'PH',shifts:['1-10 PM','10-6AM (Night)','10-6AM (Night)','NIGHT OFF','1-10 PM','1-10 PM','1-10 PM']},
+    {name:'Saravanan',role:'SM-PH',shifts:['6-4PM(+2)','6-1(-1)','6-3PM','6-3PM','DO','SM MEET','6-3PM']},
+    {name:'Farhan Shaikh',role:'SA',shifts:['HO SUPPORT','HO SUPPORT','HO SUPPORT','HO SUPPORT','HO SUPPORT','HO SUPPORT','HO SUPPORT']},
+    {name:'Gita',role:'SA',shifts:['FURJAN','6-3PM','6-3PM','6-3PM','10-6AM (Night)','10-6AM (Night)','DO']},
+    {name:'Maria Chavez',role:'SA',shifts:['10-6AM (Night)','10-6AM (Night)','NIGHT OFF','1-10 PM','9-6 PM','9-6 PM','10-6AM (Night)']},
+    {name:'Walid',role:'SA',shifts:['DO','FURJAN','FURJAN','FURJAN','FURJAN','FURJAN','FURJAN']},
+    {name:'ZAHEER',role:'ASM T-1',shifts:['1-10 PM','1-10 PM','10-6AM (Night)','10-6AM (Night)','NIGHT OFF','T1','10-7PM']}
+  ]
+};
+function parseDateKey(k){
+  const d=new Date(k+'T12:00:00');
+  return d;
+}
+function dayIndexFromRosterStart(dateKey){
+  const start=parseDateKey(rosterWeek21.start);
+  const d=parseDateKey(dateKey);
+  const diff=Math.round((d-start)/86400000);
+  return diff>=0 && diff<7 ? diff : null;
+}
+function isOffShift(txt){
+  txt=(txt||'').toUpperCase();
+  return txt.includes('OFF') || txt==='AL' || txt==='DO' || txt==='SL';
+}
+function simpleShiftTime(txt){
+  if(!txt)return '—';
+  return txt.replace('(Night)','Night').replace(/\s+/g,' ').trim();
+}
+function renderShiftPanel(){
+  const panel=document.getElementById('shiftPanel');
+  if(!panel)return;
+  panel.classList.toggle('hide',!shiftPanelVisible);
+  document.getElementById('shiftToggle').textContent=shiftPanelVisible?'🌙':'☀️';
+  const todayKey=today();
+  const idx=dayIndexFromRosterStart(todayKey);
+  const days=['Fri','Sat','Sun','Mon','Tue','Wed','Thu'];
+  const my=rosterWeek21.people.find(p=>p.name.toUpperCase().includes(MY_NAME));
+  let strip='';
+  if(my){
+    my.shifts.forEach((s,i)=>{
+      strip+=`<div class="shift-day ${idx===i?'active':''} ${isOffShift(s)?'off':''}">
+        <div class="d">${days[i]}</div>
+        <div class="t">${simpleShiftTime(s)}</div>
+      </div>`;
+    });
+  }
+  document.getElementById('shiftWeekStrip').innerHTML=strip;
+  document.getElementById('shiftWeekLabel').textContent='Week 21 · 15–21 May';
+  const todayShift=idx!==null && my ? my.shifts[idx] : 'Roster week not current';
+  document.getElementById('myShiftToday').textContent=simpleShiftTime(todayShift);
+  document.getElementById('myShiftSub').textContent=idx!==null ? `${days[idx]} · ${MY_NAME} ${MY_ID}` : 'Upload latest roster image in Settings';
+  const nextIdx=idx!==null ? Math.min(idx+1,6) : 0;
+  const active=rosterWeek21.people.filter(p=>!isOffShift(p.shifts[nextIdx]) && !String(p.shifts[nextIdx]).toUpperCase().includes('FURJAN') && !String(p.shifts[nextIdx]).toUpperCase().includes('HO SUPPORT'));
+  const ph=active.find(p=>p.role.includes('PH'));
+  const cashier=active.find(p=>p.role==='SA');
+  document.getElementById('nextPh').textContent=ph ? `${ph.name} · ${simpleShiftTime(ph.shifts[nextIdx])}` : '—';
+  document.getElementById('nextCashier').textContent=cashier ? `${cashier.name} · ${simpleShiftTime(cashier.shifts[nextIdx])}` : '—';
+}
+function toggleShiftPanel(){
+  shiftPanelVisible=!shiftPanelVisible;
+  localStorage.setItem(STORE+'_shift_visible',shiftPanelVisible?'1':'0');
+  renderShiftPanel();
+}
+function loadShiftPanelState(){
+  const v=localStorage.getItem(STORE+'_shift_visible');
+  if(v!==null)shiftPanelVisible=v==='1';
+}
+function handleRosterImage(ev){
+  const file=ev.target.files && ev.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=e.target.result;
+    localStorage.setItem(STORE+'_roster_image',img);
+    const p=document.getElementById('ocrPreview');
+    p.style.display='block';
+    p.innerHTML=`<img src="${img}">`;
+    const res=document.getElementById('ocrResult');
+    res.textContent='Roster image saved. Browser OCR support is limited; use this image as reference for roster updates.';
+    toast('Roster image saved');
+  };
+  reader.readAsDataURL(file);
+}
+function loadRosterPreview(){
+  const img=localStorage.getItem(STORE+'_roster_image');
+  const p=document.getElementById('ocrPreview');
+  if(img&&p){
+    p.style.display='block';
+    p.innerHTML=`<img src="${img}">`;
+    const res=document.getElementById('ocrResult');
+    if(res)res.textContent='Saved roster image available as reference.';
+  }
+}
+
 function today(){return new Date().toISOString().slice(0,10)}
 function n(v){v=parseFloat(v);return isNaN(v)?0:v}
 function money(v){return 'AED '+Math.round(n(v)).toLocaleString()}
 function fmt(v){return Math.round(n(v)).toLocaleString()}
-function load(){try{const s=JSON.parse(localStorage.getItem(STORE)||'{}');cfg={...cfg,...(s.cfg||{})};data=s.data||{}}catch(e){}current={...(data[today()]||{})}}
+function load(){try{const s=JSON.parse(localStorage.getItem(STORE)||'{}');cfg={...cfg,...(s.cfg||{})};data=s.data||{}}catch(e){}current={...(data[today()]||{})};loadShiftPanelState()}
 function persist(){localStorage.setItem(STORE,JSON.stringify({cfg,data}))}
 function toast(t){let el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1400)}
 function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');let nav=document.getElementById('nav-'+id);if(nav)nav.classList.add('active');renderAll();scrollTo(0,0)}
@@ -462,7 +780,7 @@ function renderSettings(){document.getElementById('setStore').value=cfg.store;do
 function setCfg(k,v){cfg[k]=k==='store'?v:n(v);persist();renderAll()}
 function exportData(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({cfg,data},null,2)],{type:'application/json'}));a.download='boots-tracker-backup-'+today()+'.json';a.click();toast('Backup exported')}
 function resetAll(){if(confirm('Delete all app data?')){data={};current={};localStorage.removeItem(STORE+'_status');persist();renderAll();toast('Data cleared')}}
-function renderAll(){renderHeader();renderHome();renderQuick();renderWeekly();renderKpi();renderHistory();renderSettings()}
+function renderAll(){renderHeader();renderHome();renderQuick();renderWeekly();renderKpi();renderHistory();renderSettings();renderShiftPanel();loadRosterPreview()}
 load();renderEntry();renderAll();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 </script>
