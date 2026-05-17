@@ -1,7 +1,6 @@
 {
-  "name": "Tracker Made Easy",
+  "name": "Boots Tracker Made Easy",
   "short_name": "Tracker",
-  "description": "Boots colour grid sales tracker PWA",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#020B1F",

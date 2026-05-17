@@ -1,13 +1,7 @@
-# Tracker Made Easy — Boots Grid Colour Version
+# Boots Tracker Made Easy
 
-GitHub-ready PWA package with grid/card colours updated from the Boots colour reference.
+Working PWA with 3-month calendar history.
 
-## Included
-- index.html
-- manifest.json
-- sw.js
-- icon-192.png
-- icon-512.png
+History calendar shows Friday–Thursday business weeks with TLR / AL / D/O / OFF day tags. OFF appears red.
 
-## Deploy
-Extract this zip, upload all files to GitHub, then enable GitHub Pages from Settings → Pages.
+Upload all files to GitHub repository root and enable Pages.
